@@ -1,3 +1,3 @@
 $(()=>{
-    $('body').html("<div>Rahul's Resume</div>");
+    $('body#root').html(window.project.resume.getHtml());
 });
