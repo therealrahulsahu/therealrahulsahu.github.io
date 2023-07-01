@@ -88,16 +88,67 @@ window.project = {
                 </div>
             `;
         },
+        block: {
+            getEducation: ()=>{
+                return `
+                    <div class='resume info-sub'>
+                        
+                    </div>
+                `;
+            },
+            getWorkExperience: ()=>{
+                return `
+                    <div class='resume info-sub'></div>
+                `;
+            },
+            getSkills: ()=>{
+                return `
+                    <div class='resume info-sub'></div>
+                `;
+            },
+            getProjects: ()=>{
+                return `
+                    <div class='resume info-sub'></div>
+                `;
+            },
+            getCertificate: ()=>{
+                return `
+                    <div class='resume info-sub'></div>
+                `;
+            },
+            getLangs: ()=>{
+                return `
+                    <div class='resume info-sub'></div>
+                `;
+            },
+            getInterest: ()=>{
+                return `
+                    <div class='resume info-sub'></div>
+                `;
+            }
+        },
         getHtml: ()=>{
             return `
                 <style>
                     .resume.intro.sep{
                         border: 1px solid black;
                     }
+                    .resume.info-block{
+                        display: flex;
+                    }
                 </style>
                 <div class='resume main'>
                     ${window.project.resume.getHeading()}
                     <div class='resume intro sep'></div>
+                    <div class='resume info-block'>
+                        ${window.project.resume.block.getEducation()}
+                        ${window.project.resume.block.getWorkExperience()}
+                        ${window.project.resume.block.getSkills()}
+                        ${window.project.resume.block.getProjects()}
+                        ${window.project.resume.block.getCertificate()}
+                        ${window.project.resume.block.getLangs()}
+                        ${window.project.resume.block.getInterest()}
+                    </div>
                 </div>
             `;
         }
