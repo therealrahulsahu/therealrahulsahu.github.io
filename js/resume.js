@@ -93,7 +93,31 @@ window.project = {
                 const subBlock = (items)=>{
                     return `
                         <div class='resume sub-education'>
-                            
+                            <div class='resume title'>${items.title}</div>
+                            <div class='resume name'>
+                                ${items.nameLink?`<a href='${items.nameLink}'>${items.name}</a>`:`${items.name}`}
+                            </div>
+                            <div class='resume school-achive'>
+                                <div class='resume left'>${items.date}</div>
+                                ${items.grade?`<div class='resume right'>${items.grade}</div>`:``}
+                            </div>
+                            <div class='resume courses'>
+                                ${items.courses.map(course=>{
+                                    if(course.link){
+                                        return `
+                                            <div class='resume courses-course'>
+                                                <a href='${course.link}'>${course.text}</a>
+                                            </div>
+                                        `;
+                                    }else{
+                                        return `
+                                            <div class='resume courses-course'>
+                                                ${course.text}
+                                            </div>
+                                        `;
+                                    }
+                                }).join('\n')}
+                            </div>
                         </div>
                     `;
                 };
@@ -112,7 +136,7 @@ window.project = {
                     {
                         title: 'School',
                         name: 'International Public School',
-                        nameLink: '07/2013 - 04/2016,',
+                        date: '07/2013 - 04/2016,',
                         coursesText: 'Courses',
                         courses: [{
                             text: 'CBSE Board'
