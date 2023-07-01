@@ -90,9 +90,44 @@ window.project = {
         },
         block: {
             getEducation: ()=>{
+                const subBlock = (items)=>{
+                    return `
+                        <div class='resume sub-education'>
+                            
+                        </div>
+                    `;
+                };
+                const data = [
+                    {
+                        title: 'Bachelor of Technology',
+                        name: 'Kalinga Institute of Industrial Technology',
+                        nameLink: 'https://1drv.ms/b/s!Am373MZ-hj_4uH-0cJZhSyNV9JHJ?e=dz5by6',
+                        date: '07/2017 - 05/2021',
+                        grade: '9.06 CGPA',
+                        coursesText: 'Courses',
+                        courses: [{
+                            text: 'Computer Science and Engineering'
+                        }]
+                    },
+                    {
+                        title: 'School',
+                        name: 'International Public School',
+                        nameLink: '07/2013 - 04/2016,',
+                        coursesText: 'Courses',
+                        courses: [{
+                            text: 'CBSE Board'
+                        },{
+                            text: 'SSC - 82 %',
+                            link: 'https://1drv.ms/u/s!Am373MZ-hj_4s3VADwgjC13dVnaI?e=rDJCtr'
+                        },{
+                            text: 'HSC - 8.4 CGPA',
+                            link: 'https://1drv.ms/u/s!Am373MZ-hj_4s3ZVtU9sNB1uPMAg?e=QXH27v'
+                        }]
+                    }
+                ];
                 return `
-                    <div class='resume info-sub'>
-                        
+                    <div class='resume info-sub education'>
+                        ${data.map(block=>subBlock(block)).join('\n')}
                     </div>
                 `;
             },
