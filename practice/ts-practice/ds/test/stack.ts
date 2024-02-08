@@ -1,12 +1,26 @@
 import Stack from "../Stack";
 
-export const execute = ()=>{
-    const stack:Stack = new Stack([1,2,3], false);
+class SampleOb{
+    private value:number;
+    constructor(v:number){
+        this.value = v;
+    }
+    getValue():number{
+        return this.value;
+    }
+}
 
-    stack.push(12);
+export const execute = ()=>{
+    const stack:Stack<SampleOb> = new Stack<SampleOb>();
+
+    stack.push(new SampleOb(3));
+    stack.push(new SampleOb(2));
+    stack.push(new SampleOb(1));
+
+    const displayFn = (v:SampleOb):string=>v?v.getValue().toString():null;
     
-    stack.trace();
-    stack.display()
+    stack.trace(displayFn);
+    stack.display(displayFn);
 };
 
 execute();

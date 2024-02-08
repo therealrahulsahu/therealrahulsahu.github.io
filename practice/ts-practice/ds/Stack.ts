@@ -1,21 +1,13 @@
-import ListPoint from "./ListPoint"
+import ListNode from "./ListNode"
 
-export default class Stack{
+export default class Stack<T>{
 
-    private stack:ListPoint = null;
+    private stack:ListNode<T> = null;
 
-    constructor(v:number[]=[], dirLeft:boolean=true){
-        if(v.length){
-            if(dirLeft){
-                v.forEach(i=>this.push(i));
-            }else{
-                v.toReversed().forEach(i=>this.push(i));
-            }
-        }
-    }
+    constructor(){}
 
-    push(v:number){
-        const point = new ListPoint(v);
+    push(v:T){
+        const point = new ListNode<T>(v);
 
         if(this.stack){
             point.setNext(this.stack);
@@ -23,11 +15,11 @@ export default class Stack{
         this.stack = point;
     }
 
-    check():number{
+    check():T{
         return this.stack?.getValue()||null;
     }
 
-    pop():number{
+    pop():T{
         if(this.stack){
             const v = this.stack.getValue();
             this.stack = this.stack.getNext();
@@ -37,21 +29,21 @@ export default class Stack{
         }
     }
 
-    display(){
+    display(fn:(v:T)=>string){
         let resp:string = `Display:: `;
         let trav = this.stack;
         while(trav){
-            resp += `${trav.getValue()}  `;
+            resp += `${fn(trav.getValue())}  `;
             trav = trav.getNext();
         }
         console.log(resp);
     }
 
-    trace(){
+    trace(fn:(v:T)=>string){
         let trav = this.stack;
         let i=0;
         while(trav){
-            console.log(`${i}:: ${trav.getValue()} -> ${trav.getNext()?.getValue()||null}`);
+            console.log(`${i}:: ${fn(trav.getValue())} -> ${fn(trav.getNext()?.getValue())}`);
             trav = trav.getNext();
             i++;
         }
