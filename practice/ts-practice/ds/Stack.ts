@@ -3,35 +3,38 @@ import ListNode from "./ListNode"
 export default class Stack<T>{
 
     private stack:ListNode<T> = null;
+    private length:number = 0;
 
     constructor(){}
 
-    push(v:T){
-        const point = new ListNode<T>(v);
+    push(v:T):void{
+        const point:ListNode<T> = new ListNode<T>(v);
 
         if(this.stack){
             point.setNext(this.stack);
         }
         this.stack = point;
-    }
-
-    check():T{
-        return this.stack?.getValue()||null;
+        this.length++;
     }
 
     pop():T{
         if(this.stack){
-            const v = this.stack.getValue();
+            const v:T = this.stack.getValue();
             this.stack = this.stack.getNext();
+            this.length--;
             return v;
         }else{
             return null;
         }
     }
 
-    display(fn:(v:T)=>string){
+    check():T{
+        return this.stack?.getValue()||null;
+    }
+
+    display(fn:(v:T)=>string):void{
         let resp:string = `Display:: `;
-        let trav = this.stack;
+        let trav:ListNode<T> = this.stack;
         while(trav){
             resp += `${fn(trav.getValue())}  `;
             trav = trav.getNext();
@@ -39,7 +42,7 @@ export default class Stack<T>{
         console.log(resp);
     }
 
-    trace(fn:(v:T)=>string){
+    trace(fn:(v:T)=>string):void{
         let trav = this.stack;
         let i=0;
         while(trav){
@@ -47,5 +50,9 @@ export default class Stack<T>{
             trav = trav.getNext();
             i++;
         }
+    }
+
+    getLength():number{
+        return this.length;
     }
 }

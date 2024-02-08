@@ -14,8 +14,11 @@ export const execute = ()=>{
     const stack:Stack<SampleOb> = new Stack<SampleOb>();
 
     stack.push(new SampleOb(3));
+    console.log(stack.getLength());
     stack.push(new SampleOb(2));
+    console.log(stack.getLength());
     stack.push(new SampleOb(1));
+    console.log(stack.getLength());
 
     const displayFn = (v:SampleOb):string=>v?v.getValue().toString():null;
     
