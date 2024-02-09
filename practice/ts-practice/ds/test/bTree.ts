@@ -105,21 +105,53 @@ export const execute = ():void=>{
     const comparatorFn = (a:number, b:number):number=>a-b;
 
     const bst:BSearchTree<number> = new BSearchTree<number>(comparatorFn);
+    const insertedElem:number[] = [];
 
     const logFn = ()=>{
+        // console.log(`inserted len: ${insertedElem.length}`);
+        // console.log(`inserted: ${insertedElem.join(' : ')}`);
+        // console.log(`len: ${bst.getSize()}`);
         console.log(`BST: ${bst.BST().join(' : ')}`);
-        console.log(`DFS: ${bst.DFS().join(' : ')}`);
-        console.log(`BFS: ${bst.BFS().join(' : ')}`);
+        console.log(`height: ${bst.getHeight()}`);
+        // console.log(`DFS: ${bst.DFS().join(' : ')}`);
+        // console.log(`BFS: ${bst.BFS().join(' : ')}`);
     }
+    bst.add(17);
     bst.add(20);
-    bst.add(22);
     bst.add(15);
-    bst.add(60);
-    bst.add(80);
-    bst.add(20);
-    bst.add(16);
-    bst.add(90);
+    // bst.add(60);
+    // bst.add(80);
+    // bst.add(20);
+    // bst.add(16);
+    // bst.add(90);
+    // bst.add(21);
+    // bst.add(85);
+    // bst.add(75);
+    // bst.add(86);
+    // bst.add(89);
+
+    console.log(JSON.stringify(bst.nodeMap(
+        node=>node.toString()
+    )));
     logFn();
+    
+    // console.time();
+    // for(let i=0;i<1e7;i++){
+    //     const rand:number = Math.floor(Math.random()*1e10);
+    //     insertedElem.push(rand);
+    //     bst.add(rand);
+    // }
+    // console.timeEnd();
+    
+    // logFn();
+
+    // console.time();
+    // console.log(bst.search(123123));
+    // console.timeEnd();
+
+    // console.time();
+    // console.log(bst.BST().find(v=>v===12123)||null);
+    // console.timeEnd();
 }
 
 execute();

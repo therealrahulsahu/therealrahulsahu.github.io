@@ -4,12 +4,13 @@ export default class BSearchTree<T>{
 
     private base:BTreeNode<T> = null;
     private comparatorFn:(a:T,b:T)=>number = null;
+    private size:number = 0;
 
     constructor(comparatorFn:(a:T,b:T)=>number){
         this.comparatorFn = comparatorFn;
     }
 
-    add(node:T):void{
+    add(node:T):boolean{
         const newNode:BTreeNode<T> = new BTreeNode<T>(node);
 
         let trav:BTreeNode<T> = this.base;
@@ -21,22 +22,44 @@ export default class BSearchTree<T>{
                         trav = trav.getLeftNode();
                     }else{
                         trav.setLeftNode(newNode);
-                        break;
+                        this.size++;
+                        return true;
                     }
                 }else if(compare>0){
                     if(trav.getRightNode()){
                         trav = trav.getRightNode();
                     }else{
                         trav.setRightNode(newNode);
-                        break;
+                        this.size++;
+                        return true;
                     }
                 }else{
-                    break;
+                    return false;
                 }
             }
         }else{
             this.base = newNode;
+            this.size++;
+            return true;
         }
+    }
+
+    search(node:T):T{
+        let trav:BTreeNode<T> = this.base;
+        let found:T = null;
+        while(trav){
+            const compare:number = this.comparatorFn(node, trav.getValue());
+            if(compare<0){
+                trav = trav.getLeftNode();
+            }else if(compare>0){
+                trav = trav.getRightNode();
+            }else{
+                found = trav.getValue();
+                break;
+            }
+        }
+
+        return found;
     }
 
     BST():T[]{
@@ -47,6 +70,16 @@ export default class BSearchTree<T>{
     }
     DFS():T[]{
         return this.base?.DFS()||[];
+    }
+    nodeMap(modifyFn:(node:T)=>string){
+        return this.base?.nodeMap(modifyFn)||null;
+    }
+    getHeight():number{
+        return this.base?.getHeight()||0;
+    }
+
+    getSize():number{
+        return this.size;
     }
     
 }

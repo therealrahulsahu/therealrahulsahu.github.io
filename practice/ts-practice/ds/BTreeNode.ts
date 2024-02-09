@@ -5,8 +5,6 @@ export default class BTreeNode<T>{
     private value:T = null;
     private left:BTreeNode<T> = null;
     private right:BTreeNode<T> = null;
-    private weight:number = 0;
-    private height:number = 1;
     private traversed:boolean = false;
 
     constructor(value:T, left:BTreeNode<T>=null, right:BTreeNode<T>=null){
@@ -27,7 +25,6 @@ export default class BTreeNode<T>{
     }
     setLeftNode(node:BTreeNode<T>){
         this.left = node;
-        this.evaluateHeight();
     }
 
     getRightNode():BTreeNode<T>{
@@ -35,19 +32,6 @@ export default class BTreeNode<T>{
     }
     setRightNode(node:BTreeNode<T>){
         this.right = node;
-        this.evaluateHeight();
-    }
-
-    evaluateHeight(){
-
-        const left:number = this.getLeftNode() ? this.getLeftNode().getHeight() : 0;
-        const right:number = this.getRightNode() ? this.getRightNode().getHeight() : 0;
-
-        this.height = 1 + Math.max(left, right);
-    }
-
-    getHeight():number{
-        return this.height;
     }
 
     unsetTraversed():void{
@@ -130,5 +114,32 @@ export default class BTreeNode<T>{
         }
 
         return display;
+    }
+
+    private nodeMapObject(node:BTreeNode<T>, modifyFn:(node:T)=>string){
+        if(node){
+            const ob:any = {};
+            ob[modifyFn(node.getValue())] = [
+                node.getLeftNode() ? this.nodeMapObject(node.getLeftNode(), modifyFn) : null,
+                node.getRightNode() ? this.nodeMapObject(node.getRightNode(), modifyFn) : null
+            ];
+            
+            return ob;
+        }else{
+            return null;
+        }
+    }
+    nodeMap(modifyFn:(node:T)=>string){
+        return this.nodeMapObject(this, modifyFn);
+    }
+    getHeight():number{
+        return this.relativeHeight(this);
+    }
+    private relativeHeight(node:BTreeNode<T>):number{
+        if(node){
+            return 1+Math.max(this.relativeHeight(node.getLeftNode()), this.relativeHeight(node.getRightNode()));
+        }else{
+            return 0;
+        }
     }
 }
