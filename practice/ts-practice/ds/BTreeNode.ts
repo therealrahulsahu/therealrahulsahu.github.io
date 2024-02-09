@@ -60,7 +60,7 @@ export default class BTreeNode<T>{
         return this.traversed;
     }
 
-    resetTraversed(base:BTreeNode<T>){
+    resetTraversed(base:BTreeNode<T>):void{
         if(base){
             base.unsetTraversed();
             this.resetTraversed(base.getLeftNode());
@@ -92,9 +92,7 @@ export default class BTreeNode<T>{
     }
     BFS():T[]{
         const display:T[] = [];
-
         const queue:Queue<BTreeNode<T>> = new Queue<BTreeNode<T>>();
-
         let trav:BTreeNode<T> = this;
 
         while(trav){
@@ -110,7 +108,6 @@ export default class BTreeNode<T>{
     }
     BST():T[]{
         const display:T[] = [];
-
         const stack:Stack<BTreeNode<T>> = new Stack<BTreeNode<T>>();
         let trav:BTreeNode<T> = this;
 

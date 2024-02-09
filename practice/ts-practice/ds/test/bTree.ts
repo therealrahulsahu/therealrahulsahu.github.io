@@ -1,3 +1,4 @@
+import BSearchTree from "../BSearchTree";
 import BTreeNode from "../BTreeNode";
 import Queue from "../Queue";
 import Stack from "../Stack";
@@ -97,10 +98,28 @@ export const execute = ():void=>{
 
     n7.setRightNode(n8);
 
-    console.log(n1.DFS().join(' : '));
-    console.log(n1.BFS().join(' : '));
-    console.log(n1.BST().join(' : '));
+    // console.log(n2.DFS().join(' : '));
+    // console.log(n2.BFS().join(' : '));
+    // console.log(n2.BST().join(' : '));
 
+    const comparatorFn = (a:number, b:number):number=>a-b;
+
+    const bst:BSearchTree<number> = new BSearchTree<number>(comparatorFn);
+
+    const logFn = ()=>{
+        console.log(`BST: ${bst.BST().join(' : ')}`);
+        console.log(`DFS: ${bst.DFS().join(' : ')}`);
+        console.log(`BFS: ${bst.BFS().join(' : ')}`);
+    }
+    bst.add(20);
+    bst.add(22);
+    bst.add(15);
+    bst.add(60);
+    bst.add(80);
+    bst.add(20);
+    bst.add(16);
+    bst.add(90);
+    logFn();
 }
 
 execute();
