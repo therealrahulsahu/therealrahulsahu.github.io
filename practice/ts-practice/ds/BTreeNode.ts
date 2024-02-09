@@ -1,3 +1,6 @@
+import Queue from "./Queue";
+import Stack from "./Stack";
+
 export default class BTreeNode<T>{
     private value:T = null;
     private left:BTreeNode<T> = null;
@@ -44,7 +47,7 @@ export default class BTreeNode<T>{
     }
 
     getHeight():number{
-        return this.weight;
+        return this.height;
     }
 
     unsetTraversed():void{
@@ -55,5 +58,80 @@ export default class BTreeNode<T>{
     }
     isTraversed():boolean{
         return this.traversed;
+    }
+
+    resetTraversed(base:BTreeNode<T>){
+        if(base){
+            base.unsetTraversed();
+            this.resetTraversed(base.getLeftNode());
+            this.resetTraversed(base.getRightNode());
+        }
+    }
+
+    DFS():T[]{
+        const display:T[] = [];
+        const stack:Stack<BTreeNode<T>> = new Stack<BTreeNode<T>>();
+        let trav:BTreeNode<T> = this;
+
+        trav && trav.isTraversed() && this.resetTraversed(trav);
+    
+        while(trav){
+            if(trav.getLeftNode() && !trav.getLeftNode().isTraversed()){
+                stack.push(trav);
+                trav = trav.getLeftNode();
+            }else if(trav.getRightNode() && !trav.getRightNode().isTraversed()){
+                stack.push(trav);
+                trav = trav.getRightNode();
+            }else{
+                display.push(trav.getValue());
+                trav.setTraversed();
+                trav = stack.pop();
+            }
+        }
+        return display;
+    }
+    BFS():T[]{
+        const display:T[] = [];
+
+        const queue:Queue<BTreeNode<T>> = new Queue<BTreeNode<T>>();
+
+        let trav:BTreeNode<T> = this;
+
+        while(trav){
+            display.push(trav.getValue());
+            
+            trav.getLeftNode() && queue.push(trav.getLeftNode());
+            trav.getRightNode() && queue.push(trav.getRightNode());
+            
+            trav = queue.pop();
+        }
+
+        return display;
+    }
+    BST():T[]{
+        const display:T[] = [];
+
+        const stack:Stack<BTreeNode<T>> = new Stack<BTreeNode<T>>();
+        let trav:BTreeNode<T> = this;
+
+        trav && trav.isTraversed() && this.resetTraversed(trav);
+
+        while(trav){
+            if(trav.getLeftNode() && !trav.getLeftNode().isTraversed()){
+                stack.push(trav);
+                trav = trav.getLeftNode();
+            }else{
+                display.push(trav.getValue());
+                trav.setTraversed();
+
+                if(trav.getRightNode() && !trav.getRightNode().isTraversed()){
+                    trav = trav.getRightNode();
+                }else{
+                    trav = stack.pop();
+                }   
+            }
+        }
+
+        return display;
     }
 }

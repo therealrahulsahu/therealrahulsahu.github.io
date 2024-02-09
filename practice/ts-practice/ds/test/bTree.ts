@@ -97,10 +97,9 @@ export const execute = ():void=>{
 
     n7.setRightNode(n8);
 
-    console.log(DFS(n1).join(' : '));
-    console.log(BFS(n1).join(' : '));
-    console.log(binaryTraverse(n1).join(' : '));
-    // console.log(n1.getLeftNode().getLeftNode().getValue())
+    console.log(n1.DFS().join(' : '));
+    console.log(n1.BFS().join(' : '));
+    console.log(n1.BST().join(' : '));
 
 }
 
