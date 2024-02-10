@@ -1,8 +1,6 @@
 import BTreeNode from "./BTreeNode";
 import Stack from "./Stack";
 
-
-
 interface BackTrackNode<T>{
     dirLeft:boolean,
     address:T
@@ -19,7 +17,6 @@ export default class BSearchTree<T>{
     }
 
     add(node:T):boolean{
-        console.log(`Add ${node}`)
         const newNode:BTreeNode<T> = new BTreeNode<T>(node);
         const backTrack:Stack<BackTrackNode<BTreeNode<T>>> = new Stack<BackTrackNode<BTreeNode<T>>>();
 
@@ -32,7 +29,6 @@ export default class BSearchTree<T>{
                         backTrack.push({dirLeft: true, address: trav});
                         trav = trav.getLeftNode();
                     }else{
-                        // backTrack.push(trav);
                         trav.setLeftNode(newNode);
                         this.rebalanceTree(backTrack);
                         this.size++;
@@ -43,7 +39,6 @@ export default class BSearchTree<T>{
                         backTrack.push({dirLeft: false, address: trav});
                         trav = trav.getRightNode();
                     }else{
-                        // backTrack.push(trav);
                         trav.setRightNode(newNode);
                         this.rebalanceTree(backTrack);
                         this.size++;
@@ -61,7 +56,6 @@ export default class BSearchTree<T>{
     }
 
     rebalanceTree(stack:Stack<BackTrackNode<BTreeNode<T>>>){
-        console.log(stack.toArray().map((v:BackTrackNode<BTreeNode<T>>)=>`${v.dirLeft?'left':'right'}-${v.address.getValue()}`));
         while(stack.getLength()){
             const toCheckNode:BackTrackNode<BTreeNode<T>> = stack.pop();
             const nodeBalance:number = toCheckNode.address.getNodeBalance();
@@ -91,26 +85,42 @@ export default class BSearchTree<T>{
         }
     }
 
-    rotateLeft(node:BTreeNode<T>):BTreeNode<T>{
-        console.log(`Left Rotate ${node.getValue()}`);
-        const temp:BTreeNode<T> = node;
-        if(node.getRightNode()){
-            node = node.getRightNode();
-            temp.setRightNode(node.getLeftNode());
-            node.setLeftNode(temp);
-            return node;
+    private rotateLeft(parent:BTreeNode<T>):BTreeNode<T>{
+        const temp:BTreeNode<T> = parent;
+        if(parent.getRightNode()){
+            parent = parent.getRightNode();
+            if(parent.getRightNode()){
+                temp.setRightNode(parent.getLeftNode());
+                parent.setLeftNode(temp);
+                return parent;
+            }else{
+                const subTemp:BTreeNode<T> = parent.getLeftNode();
+                subTemp.setRightNode(parent);
+                subTemp.setLeftNode(temp);
+                temp.setRightNode(null);
+                parent.setLeftNode(null);
+                return subTemp;
+            }
         }else{
             return null;
         }
     }
-    rotateRight(node:BTreeNode<T>):BTreeNode<T>{
-        console.log(`Right Rotate ${node.getValue()}`);
-        const temp:BTreeNode<T> = node;
-        if(node.getLeftNode()){
-            node = node.getLeftNode();
-            temp.setLeftNode(node.getRightNode());
-            node.setRightNode(temp);
-            return node;
+    private rotateRight(parent:BTreeNode<T>):BTreeNode<T>{
+        const temp:BTreeNode<T> = parent;
+        if(parent.getLeftNode()){
+            parent = parent.getLeftNode();
+            if(parent.getLeftNode()){
+                temp.setLeftNode(parent.getRightNode());
+                parent.setRightNode(temp);
+                return parent;
+            }else{
+                const subTemp:BTreeNode<T> = parent.getRightNode();
+                subTemp.setLeftNode(parent);
+                subTemp.setRightNode(temp);
+                temp.setLeftNode(null);
+                parent.setRightNode(null);
+                return subTemp;
+            }
         }else{
             return null;
         }
@@ -157,18 +167,5 @@ export default class BSearchTree<T>{
     getBaseBalance():number{
         return this.base?.getNodeBalance()||0;
     }
-    // rotate(){
-    //     if(this.getBaseBalance()<-1){
-    //         this.base = this.base.rotateLeft(this.base);
-    //     }else if(this.getBaseBalance()>1){
-    //         this.base = this.base.rotateRight(this.base);
-    //     }
-    // }
-    // rotateLeft(){
-    //     this.base = this.base.rotateLeft(this.base)||this.base;
-    // }
-    // rotateRight(){
-    //     this.base = this.base.rotateRight(this.base)||this.base;
-    // }
     
 }

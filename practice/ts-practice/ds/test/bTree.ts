@@ -110,48 +110,26 @@ export const execute = ():void=>{
     const logFn = ()=>{
         // console.log(`inserted len: ${insertedElem.length}`);
         // console.log(`inserted: ${insertedElem.join(' : ')}`);
-        // console.log(`len: ${bst.getSize()}`);
+        console.log(`len: ${bst.getSize()}`);
         // console.log(`BST: ${bst.BST().join(' : ')}`);
-        console.log(JSON.stringify(bst.nodeMap(
-            node=>node.toString()
-        )));
+        // console.log(JSON.stringify(bst.nodeMap(
+        //     node=>node.toString()
+        // )));
         console.log(`height: ${bst.getHeight()}`);
-        console.log(`balance: ${bst.getBaseBalance()}`);
+        // console.log(`balance: ${bst.getBaseBalance()}`);
         console.log(`---------------------------------------------------------------------`)
         // console.log(`DFS: ${bst.DFS().join(' : ')}`);
         // console.log(`BFS: ${bst.BFS().join(' : ')}`);
     }
+    
+    console.time();
+    for(let i=0;i<1e3;i++){
+        const rand:number = Math.floor(Math.random()*1e6);
+        insertedElem.push(rand);
+        bst.add(rand);
+    }
+    console.timeEnd();
     logFn();
-    bst.add(10);
-    logFn();
-    bst.add(20);
-    logFn();
-    bst.add(15);
-    logFn();
-    bst.add(5);
-    logFn();
-    bst.add(17);
-    logFn();
-    bst.add(7);
-    logFn();
-    bst.add(9);
-    logFn();
-    // logFn();
-    // bst.rotateRight();
-    // logFn();
-    // bst.rotateRight();
-    // logFn();
-    // bst.rotateRight();
-    // logFn();
-    // bst.rotateRight();
-    // logFn();
-    // console.time();
-    // for(let i=0;i<1e7;i++){
-    //     const rand:number = Math.floor(Math.random()*1e10);
-    //     insertedElem.push(rand);
-    //     bst.add(rand);
-    // }
-    // console.timeEnd();
     
     // logFn();
 
