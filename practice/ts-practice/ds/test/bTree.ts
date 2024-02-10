@@ -117,19 +117,26 @@ export const execute = ():void=>{
         )));
         console.log(`height: ${bst.getHeight()}`);
         console.log(`balance: ${bst.getBaseBalance()}`);
+        console.log(`---------------------------------------------------------------------`)
         // console.log(`DFS: ${bst.DFS().join(' : ')}`);
         // console.log(`BFS: ${bst.BFS().join(' : ')}`);
     }
-    bst.add(10);
-    bst.add(20);
-    bst.add(30);
-    bst.add(15);
-    bst.add(5);
-    bst.add(8);
-    bst.add(4);
-
-    
     logFn();
+    bst.add(10);
+    logFn();
+    bst.add(20);
+    logFn();
+    bst.add(15);
+    logFn();
+    bst.add(5);
+    logFn();
+    bst.add(17);
+    logFn();
+    bst.add(7);
+    logFn();
+    bst.add(9);
+    logFn();
+    // logFn();
     // bst.rotateRight();
     // logFn();
     // bst.rotateRight();

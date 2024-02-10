@@ -1,4 +1,12 @@
 import BTreeNode from "./BTreeNode";
+import Stack from "./Stack";
+
+
+
+interface BackTrackNode<T>{
+    dirLeft:boolean,
+    address:T
+}
 
 export default class BSearchTree<T>{
 
@@ -11,7 +19,9 @@ export default class BSearchTree<T>{
     }
 
     add(node:T):boolean{
+        console.log(`Add ${node}`)
         const newNode:BTreeNode<T> = new BTreeNode<T>(node);
+        const backTrack:Stack<BackTrackNode<BTreeNode<T>>> = new Stack<BackTrackNode<BTreeNode<T>>>();
 
         let trav:BTreeNode<T> = this.base;
         if(trav){
@@ -19,17 +29,23 @@ export default class BSearchTree<T>{
                 const compare:number = this.comparatorFn(newNode.getValue(), trav.getValue());
                 if(compare<0){
                     if(trav.getLeftNode()){
+                        backTrack.push({dirLeft: true, address: trav});
                         trav = trav.getLeftNode();
                     }else{
+                        // backTrack.push(trav);
                         trav.setLeftNode(newNode);
+                        this.rebalanceTree(backTrack);
                         this.size++;
                         return true;
                     }
                 }else if(compare>0){
                     if(trav.getRightNode()){
+                        backTrack.push({dirLeft: false, address: trav});
                         trav = trav.getRightNode();
                     }else{
+                        // backTrack.push(trav);
                         trav.setRightNode(newNode);
+                        this.rebalanceTree(backTrack);
                         this.size++;
                         return true;
                     }
@@ -41,6 +57,62 @@ export default class BSearchTree<T>{
             this.base = newNode;
             this.size++;
             return true;
+        }
+    }
+
+    rebalanceTree(stack:Stack<BackTrackNode<BTreeNode<T>>>){
+        console.log(stack.toArray().map((v:BackTrackNode<BTreeNode<T>>)=>`${v.dirLeft?'left':'right'}-${v.address.getValue()}`));
+        while(stack.getLength()){
+            const toCheckNode:BackTrackNode<BTreeNode<T>> = stack.pop();
+            const nodeBalance:number = toCheckNode.address.getNodeBalance();
+            if(nodeBalance<-1){
+                if(stack.check()){
+                    if(stack.check().dirLeft){
+                        stack.check().address.setLeftNode(this.rotateLeft(toCheckNode.address));
+                    }else{
+                        stack.check().address.setRightNode(this.rotateLeft(toCheckNode.address));
+                    }
+                }else{
+                    this.base = this.rotateLeft(toCheckNode.address);
+                }
+            }else if(nodeBalance>1){
+                if(stack.check()){
+                    if(stack.check().dirLeft){
+                        stack.check().address.setLeftNode(this.rotateRight(toCheckNode.address));
+                    }else{
+                        stack.check().address.setRightNode(this.rotateRight(toCheckNode.address));
+                    }
+                }else{
+                    this.base = this.rotateRight(toCheckNode.address);
+                }
+            }else{
+
+            }
+        }
+    }
+
+    rotateLeft(node:BTreeNode<T>):BTreeNode<T>{
+        console.log(`Left Rotate ${node.getValue()}`);
+        const temp:BTreeNode<T> = node;
+        if(node.getRightNode()){
+            node = node.getRightNode();
+            temp.setRightNode(node.getLeftNode());
+            node.setLeftNode(temp);
+            return node;
+        }else{
+            return null;
+        }
+    }
+    rotateRight(node:BTreeNode<T>):BTreeNode<T>{
+        console.log(`Right Rotate ${node.getValue()}`);
+        const temp:BTreeNode<T> = node;
+        if(node.getLeftNode()){
+            node = node.getLeftNode();
+            temp.setLeftNode(node.getRightNode());
+            node.setRightNode(temp);
+            return node;
+        }else{
+            return null;
         }
     }
 

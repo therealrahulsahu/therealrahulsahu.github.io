@@ -36,25 +36,25 @@ export default class Queue<T>{
         return this.front?.getValue()||null;
     }
 
-    display(fn:(v:T)=>string):void{
-        let resp:string = `Display:: `;
+    toArray():T[]{
+        const resp:T[] = [];
         let trav:ListNode<T> = this.front;
         while(trav){
-            resp += `${fn(trav.getValue())}  `;
+            resp.push(trav.getValue());
             trav = trav.getNext();
         }
-        console.log(resp);
+        return resp;
     }
 
-    trace(fn:(v:T)=>string):void{
-        let trav = this.front;
-        let i=0;
-        while(trav){
-            console.log(`${i}:: ${fn(trav.getValue())} -> ${fn(trav.getNext()?.getValue())}`);
-            trav = trav.getNext();
-            i++;
-        }
-    }
+    // trace(fn:(v:T)=>string):void{
+    //     let trav = this.front;
+    //     let i=0;
+    //     while(trav){
+    //         console.log(`${i}:: ${fn(trav.getValue())} -> ${fn(trav.getNext()?.getValue())}`);
+    //         trav = trav.getNext();
+    //         i++;
+    //     }
+    // }
 
     getLength():number{
         return this.length;

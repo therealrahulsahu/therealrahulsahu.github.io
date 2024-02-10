@@ -22,8 +22,9 @@ export const execute = ()=>{
 
     const displayFn = (v:SampleOb):string=>v?v.getValue().toString():null;
     
-    stack.trace(displayFn);
-    stack.display(displayFn);
+    // stack.trace(displayFn);
+    // stack.display(displayFn);
+    console.log(stack.toArray().map(v=>v.getValue()));
 };
 
 execute();
