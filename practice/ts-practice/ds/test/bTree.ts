@@ -111,30 +111,33 @@ export const execute = ():void=>{
         // console.log(`inserted len: ${insertedElem.length}`);
         // console.log(`inserted: ${insertedElem.join(' : ')}`);
         // console.log(`len: ${bst.getSize()}`);
-        console.log(`BST: ${bst.BST().join(' : ')}`);
+        // console.log(`BST: ${bst.BST().join(' : ')}`);
+        console.log(JSON.stringify(bst.nodeMap(
+            node=>node.toString()
+        )));
         console.log(`height: ${bst.getHeight()}`);
+        console.log(`balance: ${bst.getBaseBalance()}`);
         // console.log(`DFS: ${bst.DFS().join(' : ')}`);
         // console.log(`BFS: ${bst.BFS().join(' : ')}`);
     }
-    bst.add(17);
+    bst.add(10);
     bst.add(20);
+    bst.add(30);
     bst.add(15);
-    // bst.add(60);
-    // bst.add(80);
-    // bst.add(20);
-    // bst.add(16);
-    // bst.add(90);
-    // bst.add(21);
-    // bst.add(85);
-    // bst.add(75);
-    // bst.add(86);
-    // bst.add(89);
+    bst.add(5);
+    bst.add(8);
+    bst.add(4);
 
-    console.log(JSON.stringify(bst.nodeMap(
-        node=>node.toString()
-    )));
-    logFn();
     
+    logFn();
+    // bst.rotateRight();
+    // logFn();
+    // bst.rotateRight();
+    // logFn();
+    // bst.rotateRight();
+    // logFn();
+    // bst.rotateRight();
+    // logFn();
     // console.time();
     // for(let i=0;i<1e7;i++){
     //     const rand:number = Math.floor(Math.random()*1e10);

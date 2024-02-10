@@ -81,5 +81,22 @@ export default class BSearchTree<T>{
     getSize():number{
         return this.size;
     }
+
+    getBaseBalance():number{
+        return this.base?.getNodeBalance()||0;
+    }
+    // rotate(){
+    //     if(this.getBaseBalance()<-1){
+    //         this.base = this.base.rotateLeft(this.base);
+    //     }else if(this.getBaseBalance()>1){
+    //         this.base = this.base.rotateRight(this.base);
+    //     }
+    // }
+    // rotateLeft(){
+    //     this.base = this.base.rotateLeft(this.base)||this.base;
+    // }
+    // rotateRight(){
+    //     this.base = this.base.rotateRight(this.base)||this.base;
+    // }
     
 }

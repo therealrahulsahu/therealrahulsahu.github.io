@@ -142,4 +142,34 @@ export default class BTreeNode<T>{
             return 0;
         }
     }
+
+    getNodeBalance():number{
+        const left = this.getLeftNode() ? this.getLeftNode().getHeight() : 0;
+        const right = this.getRightNode() ? this.getRightNode().getHeight() : 0;
+        return left-right;
+    }
+
+    rotateLeft(node:BTreeNode<T>):BTreeNode<T>{
+        const temp:BTreeNode<T> = node;
+        if(node.getRightNode()){
+            node = node.getRightNode();
+            temp.setRightNode(node.getLeftNode());
+            node.setLeftNode(temp);
+            return node;
+        }else{
+            return null;
+        }
+    }
+    rotateRight(node:BTreeNode<T>):BTreeNode<T>{
+        const temp:BTreeNode<T> = node;
+        if(node.getLeftNode()){
+            node = node.getLeftNode();
+            temp.setLeftNode(node.getRightNode());
+            node.setRightNode(temp);
+            return node;
+        }else{
+            return null;
+        }
+    }
+
 }
