@@ -112,9 +112,9 @@ export const execute = ():void=>{
         // console.log(`inserted: ${insertedElem.join(' : ')}`);
         console.log(`len: ${bst.getSize()}`);
         // console.log(`BST: ${bst.BST().join(' : ')}`);
-        // console.log(JSON.stringify(bst.nodeMap(
-        //     node=>node.toString()
-        // )));
+        console.log(JSON.stringify(bst.nodeMap(
+            node=>node.toString()
+        )));
         console.log(`height: ${bst.getHeight()}`);
         // console.log(`balance: ${bst.getBaseBalance()}`);
         console.log(`---------------------------------------------------------------------`)
