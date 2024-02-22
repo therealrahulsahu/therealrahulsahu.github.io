@@ -13,8 +13,8 @@ const logFn = ()=>{
 let high = 0;
 
 console.log(`Started`);
-for(let i=0;i<1e3;i++){
-    const rand = Math.floor(Math.random()*1e5);
+for(let i=0;i<1e4;i++){
+    const rand = Math.floor(Math.random()*1e8);
     high = Math.max(high, rand);
     heap.add(rand);
 
