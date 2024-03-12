@@ -87,7 +87,14 @@ var merge2 = function(nums1, m, nums2, n) {
     updateArray(0);
 };
 
-function merge(nums1, m, nums2, n) {
+function merge3(nums1, m, nums2, n) {
     for (var i = 0; i < n; nums1[i + m] = nums2[i++]);
     nums1.sort((a,b)=>a-b);
+}
+
+function merge(nums1, m, nums2, n) {
+    
+    for(let i=m-1,j=n-1,k=m+n-1; j>=0; k--){
+        nums1[k] = (i >= 0 && nums1[i] > nums2[j]) ? nums1[i--] : nums2[j--];
+    }
 }
