@@ -42,7 +42,7 @@
 
 
 
-    var isSymmetric = function(root) {
+    var isSymmetric2 = function(root) {
         const preOrder = [];
     
         const preT = (node, l)=>{
@@ -87,6 +87,17 @@
     
         return preOrder.length===0 && flag;
         
+    };
+
+
+    const isSym = (node1, node2) => {
+        if (node1 === null && node2 === null) return true;
+        if (node1 === null || node2 === null) return false;
+        return node1.val === node2.val && isSym(node1.left, node2.right) && isSym(node1.right, node2.left);
+    };
+    
+    var isSymmetric = function(root) {
+        return isSym(root.left, root.right);
     };
 
 })()
