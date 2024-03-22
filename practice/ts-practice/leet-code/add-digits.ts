@@ -4,7 +4,7 @@
  * @param {number} num
  * @return {number}
  */
-var addDigits = function(num) {
+var addDigits1 = function(num) {
 
     let val = String(num);
     
@@ -17,4 +17,14 @@ var addDigits = function(num) {
     }
 
     return val;
+};
+
+/**
+ * @param {number} num
+ * @return {number}
+ */
+var addDigits = function(num) {
+
+    if ( num == 0 ) return 0;
+	return num%9 == 0 ? 9 : num%9;
 };
