@@ -17,6 +17,7 @@ public class BaseController {
         studentList.add(new Student(1, "John Doe", "Computer Science"));
         studentList.add(new Student(2, "Jane Smith", "Mathematics"));
         studentList.add(new Student(3, "Emily Johnson", "Physics"));
+        studentList.add(new Student(4, "Michael Brown", "Chemistry"));
         return studentList;
     }
 }
